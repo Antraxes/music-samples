@@ -1,0 +1,42 @@
+samples({
+  vocal_1: 'talk_2_me_cover.wav',
+  vocal_2: 'talk_2_me_second_cover.wav',
+  vocal_3: 'talk_2_me_backing_vocal_2.wav'
+},'github:Antraxes/music-samples')
+
+setCps(148/60/4)
+
+const melody_1 = "f#3 [a3 f#3] e4 [d4 c#4] a3 [d4 c#4] g#3 [c#4 a3] f#3 [a3 f#3] e4 [f#4 c#4] a3 [d4 c#4] g#3 [c#4 a3]"
+const melody_2 = "f#4 [a4 f#4] e5 [d5 c#5] a4 [d5 c#5] g#4 [c#5 a4] f#4 [a4 f#4] e5 [f#5 c#5] a4 [d5 c#5] g#4 [c#5 a4]"
+const melody_3 = "f#5 [a5 f#5] e6 [d6 c#6] a5 [d6 c#6] g#5 [c#6 a5] f#5 [a5 f#5] e6 [f#6 c#6] a5 [d6 c#6] g#5 [c#6 a5]"
+
+$: s("vocal_1").scrub(rand.seg(8)).rib(69, 2).gain(2).room(0.5).delay("0.1")
+$: s("vocal_3").scrub(rand.seg(4)).rib(1, 2).gain(0.5).room(0.5).delay("0.1")
+
+$beat: s("bd!4")
+  .distort(1.5)
+  .gain(0.3)
+  .sometimesBy(.15, x => x.ply("2 | 4"))
+  .bank("tr909")
+  ._punchcard()
+
+$: s("hh!16?".degradeBy(0.6).rib(50,2)).bank("compurhythm8000").gain(0.15)._punchcard()
+
+$bass: note("a1 a1 a1 a1 e1 e1 c#2 a1 a1 a1 a1 a1 e2 d2 c#2 a1")
+  .s("supersaw")
+  .slow(4)
+  .gain(1.7)
+  .tremolosync("4")
+  .delay("0.1")
+  .decay("0.9")
+  ._pianoroll()
+
+$melody: note(melody_1)
+  .s("saw")
+  .tremolosync("4")
+  .delay("0.3")
+  .decay("0.5")
+  .slow(4)
+  .distort(1.5)
+  .gain(0.25)
+  ._pianoroll()
